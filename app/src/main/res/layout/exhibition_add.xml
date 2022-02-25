@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ex_statue">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="EXHIBITION"
+        android:textAlignment="center"
+        android:textColor="@color/ex_red"
+        android:textSize="45dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/btn_addex_img"
+        android:layout_width="270dp"
+        android:layout_height="230dp"
+        android:layout_below="@id/textView4"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/exhibition" />
+
+    <EditText
+        android:id="@+id/ex_add_title"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/btn_addex_img"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border_ex"
+        android:padding="10dp"
+        android:hint="Title or Jenre" />
+
+    <EditText
+        android:id="@+id/ex_add_artist"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/ex_add_title"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border_ex"
+        android:hint="Artist"
+        android:padding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/ex_add_review"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/ex_add_artist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/border_ex"
+        android:hint="review"
+        android:padding="10dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/ex_add_review"
+        android:layout_centerHorizontal="true"
+        android:background="@color/loading_bg">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_addex_cancle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_ex"
+            android:padding="5dp"
+            android:text="CANCLE"
+            android:textColor="@color/ex_red"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_addex_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_toRightOf="@id/btn_addex_cancle"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_ex"
+            android:padding="5dp"
+            android:text="SAVE"
+            android:textSize="20dp"
+            android:textColor="@color/ex_red"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</RelativeLayout>

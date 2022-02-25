@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity_mainmenu_toolbar">
+
+    <item
+        android:id="@+id/obtion_btn_search"
+        android:icon="@drawable/image"
+        android:title="검색"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/obtion_btn_todo"
+        android:title="TODO"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/obtion_btn_cam"
+        android:icon="@drawable/camera"
+        android:title="카메라"/>
+
+
+
+</menu>

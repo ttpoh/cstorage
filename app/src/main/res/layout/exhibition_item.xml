@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/book_grey"
+    tools:context=".exhibition.Activity_exhibition_list">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/exhibition_list_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border_exlist"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/exhibition" />
+
+        <TextView
+            android:id="@+id/exhibitionlist_title"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/exhibition_list_img"
+            android:background="@drawable/border_exlist"
+            android:padding="5dp"
+            android:text="Title"
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/exhibitionlist_author"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/exhibitionlist_title"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/exhibition_list_img"
+            android:background="@drawable/border_exlist"
+            android:padding="5dp"
+            android:text="author"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/exhibitionlist_review"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="0dp"
+            android:layout_toRightOf="@id/exhibitionlist_title"
+            android:background="@drawable/border_exlist"
+            android:padding="5dp"
+            android:text="review" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

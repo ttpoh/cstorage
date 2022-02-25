@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/book_side"
+    tools:context="book.Activity_book_list">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="49dp"
+        android:gravity="center"
+        android:background="@drawable/shape_button_book"
+        android:text="Book Search"
+        android:textSize="50sp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/bookSearch_result"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/btn_addb_img"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border_book"
+        android:hint="Search"
+        android:padding="10dp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_b_searchRe"
+        android:background="@drawable/shape_button_book"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:text="search" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookSearch_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        android:layout_weight="1"
+        android:background="@color/book_grey"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_b_searchBack"
+            android:background="@drawable/shape_button_book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:text="back" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

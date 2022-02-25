@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/etc_sky">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="EDIT"
+        android:textAlignment="center"
+        android:textColor="@color/etc_roof"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/btn_edite_img"
+        android:layout_width="231dp"
+        android:layout_height="214dp"
+        android:layout_below="@id/textView4"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/etc" />
+
+    <EditText
+        android:id="@+id/etc_edit_title"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/btn_edite_img"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border_etc"
+        android:hint="Title"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/etc_edit_author"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/etc_edit_title"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border_etc"
+        android:hint="Author"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/etc_edit_review"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/etc_edit_author"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/border_etc"
+        android:hint="review"
+        android:padding="10dp" />
+
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/etc_edit_review"
+        android:layout_centerHorizontal="true"
+        android:background="@color/etc_roof">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_edite_cancle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_etc"
+            android:padding="5dp"
+            android:text="CANCLE"
+            android:textColor="@color/etc_roof"
+            android:textSize="10dp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_edite_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_toRightOf="@id/btn_edite_cancle"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_etc"
+            android:padding="5dp"
+            android:text="edit"
+            android:textColor="@color/etc_roof"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</RelativeLayout>

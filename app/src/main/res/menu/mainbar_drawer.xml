@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".Activity_mainmenu_toolbar">
+
+    <item android:id="@+id/ham_book"
+        android:title="책"
+        android:icon="@drawable/book"
+        app:showAsAction="never" />
+    <item android:id="@+id/ham_movie"
+        android:title="영화"
+        android:icon="@drawable/movie"
+        app:showAsAction="never"/>
+    <item android:id="@+id/ham_exhibition"
+        android:title="전시회"
+        android:icon="@drawable/exhibition"
+        app:showAsAction="never" />
+    <item android:id="@+id/ham_concert"
+        android:title="콘서트"
+        android:icon="@drawable/concert"
+        app:showAsAction="never"/>
+    <item android:id="@+id/ham_etc"
+        android:title="기타"
+        android:icon="@drawable/etc"
+        app:showAsAction="never"/>
+</menu>

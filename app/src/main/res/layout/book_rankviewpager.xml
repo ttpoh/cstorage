@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/rankbook"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:textColor="@android:color/background_dark"
+            android:padding="5dp"
+            android:text="추천 도서 순위"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/rankbook_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/rankbook"
+            android:padding="5dp"
+            android:text="rank"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/rankbook_title"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_toRightOf="@id/rankbook_rank"
+            android:text="title"
+            android:padding="5dp"
+            android:textColor="@android:color/background_dark"
+            android:textSize="25dp" />
+    </RelativeLayout>
+</RelativeLayout>

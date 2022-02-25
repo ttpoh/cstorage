@@ -1,0 +1,142 @@
+Index: app/src/main/java/com/nova/cstorage/book/Activity_book_list.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/nova/cstorage/book/Activity_book_list.java b/app/src/main/java/com/nova/cstorage/book/Activity_book_list.java
+--- a/app/src/main/java/com/nova/cstorage/book/Activity_book_list.java	(date 1644737151709)
++++ b/app/src/main/java/com/nova/cstorage/book/Activity_book_list.java	(date 1644737151709)
+@@ -1,5 +1,7 @@
+ package com.nova.cstorage.book;
+ 
++import static android.content.ContentValues.TAG;
++
+ import android.content.Context;
+ import android.content.Intent;
+ import android.content.SharedPreferences;
+@@ -23,17 +25,22 @@
+ import com.nova.cstorage.MainActivity;
+ import com.nova.cstorage.R;
+ 
++import org.json.JSONArray;
++import org.json.JSONException;
++
+ import java.util.ArrayList;
+ 
+ public class Activity_book_list extends AppCompatActivity implements View.OnClickListener, Activity_book_adapter.OnListItemSelectedInterface {
+ 
+     private ArrayList<Activity_book_data> arrayBook;
++    private ArrayList<String> bookarray = new ArrayList<String>();
+     private Activity_book_adapter adapter;
+     RecyclerView recyclerView;
+-
++    Gson gson = new Gson();
+ 
+     final Context context = this;
+     String bookData;
++    String SharedPreFile = "com.nova.cstorage";
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -45,40 +52,54 @@
+         recyclerView.setLayoutManager(linearLayoutManager);
+ 
+         arrayBook = new ArrayList<Activity_book_data>();
++//        SharedPreferences sharedPreferences = getSharedPreferences("com.nova.cstorage", MODE_PRIVATE);
+ 
+-        SharedPreferences sharedPreferences = getSharedPreferences("com.nova.cstorage", MODE_PRIVATE);
+-        bookData = sharedPreferences.getString("bookData", "");
+ 
++//        Gson gson = new GsonBuilder().create();
++//        bookData = sharedPreferences.getString("bookData", "");
++//        if (!bookData.equals("")) {
++//            Activity_book_data activity_book_data = (Activity_book_data) gson.fromJson(bookData, Activity_book_data.class);
++//            Log.e("onCreate:", "리사이클러뷰 생성1");
++//            for (int i = 1; arrayBook.size() > i; i++) {
++//
++//                arrayBook.add(activity_book_data);
++//                Log.e("onCreate:", "리사이클러뷰 생성2");
++//                adapter = new Activity_book_adapter(context, this, arrayBook);
++//                recyclerView.setAdapter(adapter);
++//
++//
++//            }
++//                adapter.notifyDataSetChanged();
++//
++//
++//
++//            }
+ 
+-        Gson gson = new GsonBuilder().create();
++        arrayBook = getStringArrayPref(context, "bookData");
++        if (arrayBook != null) {
++            for (int i = 0; arrayBook.size() > i; i++) {
+ 
+-        if (!bookData.equals("")) {
+-            Activity_book_data activity_book_data = (Activity_book_data) gson.fromJson(bookData, Activity_book_data.class);
+-            Log.e("onCreate:", "리사이클러뷰 생성1");
+-//            for (int i = 0; arrayBook.size() >= i; i++) {
++//                bookData = bookarray.get(i);
++//                ArrayList<Activity_book_data> arrayBook= new ArrayList<Activity_book_data>();
+ //
+-                arrayBook.add(activity_book_data);
+-                Log.e("onCreate:", "리사이클러뷰 생성2");
++//                gson = new Gson();
++//                bookData = gson.toJson(bookarray, String.class);
++//                arrayBook.add(bookData);
++                Log.d(TAG, "아이템추가 북어레이값: " + bookarray);
+                 adapter = new Activity_book_adapter(context, this, arrayBook);
+                 recyclerView.setAdapter(adapter);
+-
+-
+-//
+-//            }
+-
+-                adapter.notifyDataSetChanged();
+-
+-            }
++            }
++            adapter.notifyDataSetChanged();
++        }
+ 
+ 
+-            Button Add_book = (Button) findViewById(R.id.btn_b_add);
+-            Button Add_book_back = (Button) findViewById(R.id.btn_b_back);
++        Button Add_book = (Button) findViewById(R.id.btn_b_add);
++        Button Add_book_back = (Button) findViewById(R.id.btn_b_back);
+ 
+-            Add_book.setOnClickListener(this);
+-            Add_book_back.setOnClickListener(this);
+-        }
++        Add_book.setOnClickListener(this);
++        Add_book_back.setOnClickListener(this);
++    }
+ 
+-
+     @Override
+     public void onClick(View v) {
+         if (v.getId() == R.id.btn_b_add) {
+@@ -93,6 +114,23 @@
+         }
+     }
+ 
++    private ArrayList<Activity_book_data> getStringArrayPref(Context context, String bookData) {
++        SharedPreferences prefs = getSharedPreferences(SharedPreFile, MODE_PRIVATE);
++        String bdata_out = prefs.getString(bookData, null);
++        Activity_book_data activity_book_data = (Activity_book_data) gson.fromJson(bdata_out, Activity_book_data.class);
++
++        if (bookData != null) {
++            try {
++
++                for (int i = 0; i < arrayBook.size(); i++) {
++                    arrayBook.add(activity_book_data);
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
++        }
++        return arrayBook;
++    }
+ 
+ //    @Override
+ //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
