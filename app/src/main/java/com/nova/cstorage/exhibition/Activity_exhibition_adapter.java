@@ -112,10 +112,10 @@ public class Activity_exhibition_adapter extends RecyclerView.Adapter<Activity_e
                                 editor.commit();
                                 notifyDataSetChanged();
 
-                                Toast.makeText(context, "예", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "예", Toast.LENGTH_SHORT).show();
                             } else if (i == 1) {
 
-                                Toast.makeText(context, "아니오", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "아니오", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

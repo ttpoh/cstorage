@@ -13,10 +13,8 @@
         android:id="@+id/obtion_btn_todo"
         android:title="TODO"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/obtion_btn_cam"
-        android:icon="@drawable/camera"
-        android:title="카메라"/>
+
+
 
 
 

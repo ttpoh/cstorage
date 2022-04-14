@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".book.Activity_book_list">
+
+    <item
+        android:id="@+id/btn_add_search"
+        android:title="검색으로 추가"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/btn_add_direct"
+        android:title="직접 입력하기"
+        app:showAsAction="never" />
+
+
+
+</menu>

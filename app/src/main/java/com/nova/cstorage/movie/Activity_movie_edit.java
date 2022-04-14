@@ -107,16 +107,16 @@ public class Activity_movie_edit extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        Toast myToast = Toast.makeText(this.getApplicationContext(), "추가버튼", Toast.LENGTH_SHORT);
-        myToast.show();
+//        Toast myToast = Toast.makeText(this.getApplicationContext(), "추가버튼", Toast.LENGTH_SHORT);
+//        myToast.show();
 
         switch (v.getId()) {
             case R.id.btn_editm_edit:
                 String ebTitle = editMet.getText().toString();
                 String ebAuthor = editMea.getText().toString();
                 String ebWrite = editMer.getText().toString();
-                Toast myToast1 = Toast.makeText(this.getApplicationContext(), "수정버튼", Toast.LENGTH_SHORT);
-                myToast1.show();
+//                Toast myToast1 = Toast.makeText(this.getApplicationContext(), "수정버튼", Toast.LENGTH_SHORT);
+//                myToast1.show();
 
                 sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_addb_img);
                 sendBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -162,8 +162,8 @@ public class Activity_movie_edit extends AppCompatActivity implements View.OnCli
             case R.id.btn_editm_cancle:
                 Intent intent1 = new Intent(getApplicationContext(), Activity_movie_list.class);
                 startActivity(intent1);
-                Toast myToast2 = Toast.makeText(this.getApplicationContext(), "수정취소", Toast.LENGTH_SHORT);
-                myToast2.show();
+//                Toast myToast2 = Toast.makeText(this.getApplicationContext(), "수정취소", Toast.LENGTH_SHORT);
+//                myToast2.show();
                 finish();
 
                 break;

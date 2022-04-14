@@ -21,27 +21,6 @@
         android:text="BOOK LIST"
         android:textSize="50sp"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/book_search"
-        android:layout_width="350dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/btn_addb_img"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/border_book"
-        android:hint="Search"
-        android:padding="10dp" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_b_search"
-            android:background="@drawable/shape_button_book"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:text="search" />
-    </LinearLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewp_rank"
         android:layout_width="match_parent"

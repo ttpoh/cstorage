@@ -1,5 +1,7 @@
 package com.nova.cstorage.book;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -11,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,8 +28,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nova.cstorage.R;
+import com.nova.cstorage.todolist.todoAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -37,7 +44,6 @@ import java.util.ArrayList;
 public class Activity_add_book extends AppCompatActivity implements View.OnClickListener {
 
 
-
     EditText input_bookauthor;
     EditText input_booktitle;
     EditText input_bookreview;
@@ -45,14 +51,17 @@ public class Activity_add_book extends AppCompatActivity implements View.OnClick
     private static final int REQUEST_CODE = 0;
     Bitmap sendBitmap;
     Bitmap img;
-    private ImageView imageView;
-    ArrayList<Activity_book_data> book_item;
+    private ImageButton imagebutton;
 
+    ArrayList<BookSearchData> arraySearchBook;
+    ArrayList<Activity_book_data> book_item;
     String bookData;
     String SharedPreFile = "cstorage_bookData";
     SharedPreferences sharedPreferences;
+    BookSearchData bookSearchData;
     Gson gson;
     Context context;
+    int pos;
 
     Type arrayBook_list = new TypeToken<ArrayList<Activity_book_data>>() {
     }.getType();
@@ -62,11 +71,21 @@ public class Activity_add_book extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_add);
 
-        imageView = findViewById(R.id.btn_addb_img);
+        Intent intent = getIntent();
+        pos = intent.getIntExtra("pos", -1);
+
+        arraySearchBook = new ArrayList<BookSearchData>();
+
+        imagebutton = findViewById(R.id.btn_addb_img);
 
         input_booktitle = (EditText) findViewById(R.id.book_add_title);
         input_bookauthor = (EditText) findViewById(R.id.book_add_author);
         input_bookreview = (EditText) findViewById(R.id.book_add_review);
+
+        Log.d(TAG, "검색 결과 추가 : " + arraySearchBook.size());
+        String title = intent.getStringExtra("searchT");
+        String author = intent.getStringExtra("searchA");
+        String bookP = intent.getStringExtra("searchP");
 
         Button btn_addb_save = (Button) findViewById(R.id.btn_addb_save);
         Button btn_addb_cancle = (Button) findViewById(R.id.btn_addb_cancle);
@@ -96,7 +115,7 @@ public class Activity_add_book extends AppCompatActivity implements View.OnClick
 
 
                 sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_addb_img);
-                sendBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                sendBitmap = ((BitmapDrawable) imagebutton.getDrawable()).getBitmap();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -147,8 +166,7 @@ public class Activity_add_book extends AppCompatActivity implements View.OnClick
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            Toast myToast2 = Toast.makeText(this.getApplicationContext(), "이미지 저장버튼", Toast.LENGTH_SHORT);
-            myToast2.show();
+
             startActivityForResult(intent, REQUEST_CODE);
 
         }
@@ -165,7 +183,7 @@ public class Activity_add_book extends AppCompatActivity implements View.OnClick
                     img = BitmapFactory.decodeStream(in);
                     in.close();
 
-                    imageView.setImageBitmap(img);
+                    imagebutton.setImageBitmap(img);
                 } catch (Exception e) {
 
                 }

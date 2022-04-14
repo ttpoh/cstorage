@@ -1,7 +1,5 @@
 package com.nova.cstorage;
 
-import static java.sql.DriverManager.println;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -28,16 +25,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.google.android.material.navigation.NavigationView;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.nova.cstorage.book.Activity_book_list;
 import com.nova.cstorage.concert.Activity_concert_list;
 import com.nova.cstorage.etc.Activity_etc_list;
 import com.nova.cstorage.exhibition.Activity_exhibition_list;
+import com.nova.cstorage.map.Activity_map;
 import com.nova.cstorage.movie.Activity_movie_list;
 import com.nova.cstorage.todolist.Activity_todolist;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -85,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,10 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
         bStart = (ImageButton) findViewById(R.id.btn_m_start);
         bPause = (ImageButton) findViewById(R.id.btn_m_pause);
 //        bRestart = (Button) findViewById(R.id.btn_m_restart);
-        bStop = (ImageButton) findViewById(R.id.btn_m_stop);
+//        bStop = (ImageButton) findViewById(R.id.btn_m_stop);
 
         bStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,27 +144,12 @@ public class MainActivity extends AppCompatActivity {
                 isPlaying = true; // 씨크바 쓰레드 반복 하도록
 
                 bStart.setVisibility(View.INVISIBLE);
-                bStop.setVisibility(View.VISIBLE);
+//                bStop.setVisibility(View.VISIBLE);
                 bPause.setVisibility(View.VISIBLE);
             }
         });
 
-        bStop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 음악 종료
-                isPlaying = false; // 쓰레드 종료
 
-                mp.stop(); // 멈춤
-                mp.release(); // 자원 해제
-                bStart.setVisibility(View.VISIBLE);
-                bPause.setVisibility(View.INVISIBLE);
-//                bRestart.setVisibility(View.INVISIBLE);
-                bStop.setVisibility(View.INVISIBLE);
-
-                sb.setProgress(0); // 씨크바 초기화
-            }
-        });
 
         bPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,18 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 isPlaying = false; // 쓰레드 정지
             }
         });
-//        bRestart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 멈춘 지점부터 재시작
-//                mp.seekTo(pos); // 일시정지 시점으로 이동
-//                mp.start(); // 시작
-//                bRestart.setVisibility(View.INVISIBLE);
-//                bPause.setVisibility(View.VISIBLE);
-//                isPlaying = true; // 재생하도록 flag 변경
-//                new seekbarThread().start(); // 쓰레드 시작
-//            }
-//        });
+
         addViewPager.add(getDrawable(R.drawable.interpark));
         addViewPager.add(getDrawable(R.drawable.yes24));
         addViewPager.add(getDrawable(R.drawable.cgv));
@@ -252,24 +230,24 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(MainActivity.this, Activity_book_list.class);
                     startActivity(intent);
-                    drawerLayout.closeDrawers();
+//                    drawerLayout.closeDrawers();
 
                 } else if (item.getItemId() == R.id.ham_movie) {
                     Intent intent = new Intent(MainActivity.this, Activity_movie_list.class);
                     startActivity(intent);
-                    drawerLayout.closeDrawers();
+//                    drawerLayout.closeDrawers();
                 } else if (item.getItemId() == R.id.ham_exhibition) {
                     Intent intent = new Intent(MainActivity.this, Activity_exhibition_list.class);
                     startActivity(intent);
-                    drawerLayout.closeDrawers();
+//                    drawerLayout.closeDrawers();
                 } else if (item.getItemId() == R.id.ham_concert) {
                     Intent intent = new Intent(MainActivity.this, Activity_concert_list.class);
                     startActivity(intent);
-                    drawerLayout.closeDrawers();
+//                    drawerLayout.closeDrawers();
                 } else if (item.getItemId() == R.id.ham_etc) {
                     Intent intent = new Intent(MainActivity.this, Activity_etc_list.class);
                     startActivity(intent);
-                    drawerLayout.closeDrawers();
+//                    drawerLayout.closeDrawers();
                 }
                 return true;
             }
@@ -293,28 +271,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.obtion_btn_search:
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://m.naver.com"));
+
+
+                Intent intent = new Intent(MainActivity.this, Activity_map.class);
                 startActivity(intent);
                 break;
             case R.id.obtion_btn_todo:
                 Intent todoIntent = new Intent(this, Activity_todolist.class);
                 startActivity(todoIntent);
-
                 break;
-            case R.id.obtion_btn_cam:
-                Log.d("카메라", "권한");
-                int permissionCheck = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA);
-                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 0);
-                } else {
-                    Intent camintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivity(camintent);
-                    break;
-                }
-
         }
-        return super.onOptionsItemSelected(item);
-    }
+
+
+        return super.
+
+    onOptionsItemSelected(item);
+}
 
 
 }

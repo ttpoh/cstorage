@@ -129,11 +129,11 @@ public class Activity_todolist extends AppCompatActivity implements View.OnClick
 
                             listview.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                            Toast.makeText(context, "삭제 버튼", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, "삭제 버튼", Toast.LENGTH_SHORT).show();
 
 
                         } else if (i == 1) {
-                            Toast.makeText(context, "아니오", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context, "아니오", Toast.LENGTH_SHORT).show();
 
                         }
                     }

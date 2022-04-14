@@ -1,5 +1,6 @@
 package com.nova.cstorage.book;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nova.cstorage.R;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,53 +33,62 @@ import java.util.ArrayList;
 public class bookSearchAdapter extends RecyclerView.Adapter<bookSearchAdapter.CustomViewHolder> {
 
     private ArrayList<BookSearchData> arraySearchBook;
-    String[] title, author;
+    BookSearchData bookSearchData;
+    String title, author;
     Context context;
     int pos;
     Gson gson;
+    private OnItemClickListener mListener =null;
 
     public bookSearchAdapter(Context context, ArrayList<BookSearchData> arraySearchBook) {
 
-        this.title = title;
-        this.author = author;
+
         this.arraySearchBook = arraySearchBook;
         this.context = context;
 //        this.mListener = listener;
     }
 
 
-    public interface OnListItemSelectedInterface {
-        void onItemSelected(View v, int position);
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
     }
-
-    private OnListItemSelectedInterface mListener;
 
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        protected ImageView book_list_img;
-        protected TextView booklist_title;
-        protected TextView booklist_author;
+        protected ImageView book_search_img;
+        protected TextView booksearch_title;
+        protected TextView booksearch_author;
 
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.book_list_img = itemView.findViewById(R.id.book_list_img);
-            this.booklist_title = itemView.findViewById(R.id.booklist_title);
-            this.booklist_author = itemView.findViewById(R.id.booklist_author);
+            this.book_search_img = itemView.findViewById(R.id.book_search_img);
+            this.booksearch_title = itemView.findViewById(R.id.booksearch_title);
+            this.booksearch_author = itemView.findViewById(R.id.booksearch_author);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 //아이템 클릭 후 수정 페이지로 이동.
                 @Override
                 public void onClick(View v) {
                     pos = getAdapterPosition();
-                    mListener.onItemSelected(v, getAdapterPosition());
+
                     if (pos != RecyclerView.NO_POSITION) {
 
-                        Intent intent = new Intent(context, Activity_book_edit.class);
+                        if (mListener != null) {
+                            mListener.onItemClick(v, pos);
+                        }
+                        bookSearchData = new BookSearchData();
+                        Intent intent = new Intent(v.getContext(), Activity_searchAdd_book.class);
+
                         intent.putExtra("position1", pos);
-                        (context).startActivity(intent);
+                        intent.putExtra("searchT", arraySearchBook.get(pos).getTitle());
+
+                        intent.putExtra("searchA", arraySearchBook.get(pos).getAuthor());
+                        intent.putExtra("searchP", arraySearchBook.get(pos).getBookpic());
+                        Log.d(TAG, "검색 결과 추가 : " + arraySearchBook.get(pos).getBookpic());
+                        (v.getContext()).startActivity(intent);
                     }
 
                 }
@@ -94,20 +106,9 @@ public class bookSearchAdapter extends RecyclerView.Adapter<bookSearchAdapter.Cu
                         public void onClick(DialogInterface dialogInterface, int i) {
 
                             if (i == 0) {
-//                                remove(getLayoutPosition());
                                 pos = getAdapterPosition();
                                 gson = new Gson();
 
-//                                SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreFile, MODE_PRIVATE);
-//                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                String bookDataD = sharedPreferences.getString("bookData", "");
-//
-//                                arraySearchBook = gson.fromJson(bookDataD, arrayBook_list);
-//                                arraySearchBook.remove(pos);
-//                                String dBook = gson.toJson(arraySearchBook, arrayBook_list);
-//                                editor.putString("bookData", dBook);
-//                                editor.commit();
-//                                notifyDataSetChanged();
 
                                 Toast.makeText(context, "예", Toast.LENGTH_SHORT).show();
                             } else if (i == 1) {
@@ -125,26 +126,26 @@ public class bookSearchAdapter extends RecyclerView.Adapter<bookSearchAdapter.Cu
         }
 
         public void onBind(BookSearchData item) {
-            Log.e("바인드데이터", "데이터");
+            Log.e("바인드데이터", "바인드데이터" + item);
 
 
-//            byte[] arr = item.getBook_pic();
-//            Bitmap image = BitmapFactory.decodeByteArray(arr, 0, arr.length);
-
-
-//            book_list_img.setImageBitmap(image);
-            booklist_title.setText(item.getTitle());
-            booklist_author.setText(item.getAuthor());
-//            booklist_review.setText(item.getBookwrite());
-
+            String imageUrl = item.getBookpic();
+            Log.e("바인드데이터", "타이틀" + item.getTitle());
+            booksearch_title.setText(Html.fromHtml(item.getTitle()));
+            booksearch_author.setText(Html.fromHtml(item.getAuthor()));
+//            book_search_img.setTag(item);
+            if (item.getBookpic().isEmpty()) {
+                book_search_img.setImageResource(R.drawable.book);
+            } else {
+                Picasso.get().load(imageUrl).into(book_search_img);
+            }
         }
     }
-
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Log.e("뷰홀더", "생성");
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.book_item, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.book_search_item, viewGroup, false);
         CustomViewHolder viewholder = new CustomViewHolder(view);
 
         return viewholder;
@@ -154,7 +155,7 @@ public class bookSearchAdapter extends RecyclerView.Adapter<bookSearchAdapter.Cu
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
 
-        Log.d("바인드뷰홀더", "바뷰홀더");
+        Log.d("바인드뷰홀더", "바뷰홀더" + position);
         viewholder.onBind(arraySearchBook.get(position));
 
     }
@@ -169,9 +170,6 @@ public class bookSearchAdapter extends RecyclerView.Adapter<bookSearchAdapter.Cu
     public long getItemId(int position) {
         return position;
     }
-
-
-
 
 
 }

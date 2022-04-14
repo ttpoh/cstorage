@@ -70,6 +70,7 @@ public class Activity_book_edit extends AppCompatActivity implements View.OnClic
         gson = new Gson();
 
         String book_data = sharedPreferences.getString("bookData", "");
+        Log.d("sharedReceive",book_data);
         if (book_data.equals("")) {
             edit_arrayBook = new ArrayList<Activity_book_data>();
             String book_array = gson.toJson(edit_arrayBook, arrayBook_list);
@@ -91,12 +92,6 @@ public class Activity_book_edit extends AppCompatActivity implements View.OnClic
         editBea.setText(edit_arrayBook.get(pos).getBookauth());
         editBer.setText(edit_arrayBook.get(pos).getBookwrite());
 
-//
-//
-//        Toast myToast2 = Toast.makeText(this.getApplicationContext(), "수정 데이터 이동", Toast.LENGTH_SHORT);
-//        myToast2.show();
-//
-//        sharedPreferences = getSharedPreferences(SharedPreFile, MODE_PRIVATE);
 
         btn_bes = findViewById(R.id.btn_editb_edit);
         btn_bec = findViewById(R.id.btn_editb_cancle);
@@ -109,16 +104,15 @@ public class Activity_book_edit extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        Toast myToast = Toast.makeText(this.getApplicationContext(), "추가버튼", Toast.LENGTH_SHORT);
-        myToast.show();
+//        Toast myToast = Toast.makeText(this.getApplicationContext(), "추가버튼", Toast.LENGTH_SHORT);
+//        myToast.show();
 
         switch (v.getId()) {
             case R.id.btn_editb_edit:
                 String ebTitle = editBet.getText().toString();
                 String ebAuthor = editBea.getText().toString();
                 String ebWrite = editBer.getText().toString();
-                Toast myToast1 = Toast.makeText(this.getApplicationContext(), "수정버튼", Toast.LENGTH_SHORT);
-                myToast1.show();
+
 
                 sendBitmap = BitmapFactory.decodeResource(getResources(), R.id.btn_addb_img);
                 sendBitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/book_grey"
+    tools:context="book.Activity_book_list">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/book_search_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/border_booklist"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/book" />
+
+        <TextView
+            android:id="@+id/booksearch_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/book_search_img"
+            android:background="@drawable/border_booklist"
+            android:padding="5dp"
+            android:text="Title"
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/booksearch_author"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/booksearch_title"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/book_search_img"
+            android:background="@drawable/border_booklist"
+            android:padding="5dp"
+            android:text="author"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

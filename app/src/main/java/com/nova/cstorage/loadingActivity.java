@@ -2,14 +2,22 @@ package com.nova.cstorage;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class loadingActivity extends AppCompatActivity {
     @Override
@@ -23,6 +31,29 @@ public class loadingActivity extends AppCompatActivity {
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
 
+        Log.e("getKeyHash", ""+getKeyHash(loadingActivity.this));
+    }
+
+    public static String getKeyHash(final Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            if (packageInfo == null)
+                return null;
+
+            for (Signature signature : packageInfo.signatures) {
+                try {
+                    MessageDigest md = MessageDigest.getInstance("SHA");
+                    md.update(signature.toByteArray());
+                    return android.util.Base64.encodeToString(md.digest(), android.util.Base64.NO_WRAP);
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
 
     }
 

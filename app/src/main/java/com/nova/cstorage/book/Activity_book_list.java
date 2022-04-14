@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -51,7 +53,7 @@ public class Activity_book_list extends AppCompatActivity implements View.OnClic
     static final String TABLE_NAME = "bookData";
 
     EditText bookSearch;
-
+    SharedPreferences sharedPreferences;
     ArrayList<BookVolumData> bookVolumData;
     private ArrayList<Activity_book_data> arrayBook;
     //    private ArrayList<rankData> ranklist = new ArrayList<>();
@@ -77,7 +79,7 @@ public class Activity_book_list extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_list);
 
-        bookSearch = findViewById(R.id.book_search);
+//        bookSearch = findViewById(R.id.book_search);
         viewPager2 = findViewById(R.id.viewp_rank);
         sqlData = findViewById(R.id.bookListTitle);
         int rank = 0;
@@ -118,7 +120,7 @@ public class Activity_book_list extends AppCompatActivity implements View.OnClic
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SharedPreFile, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SharedPreFile, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
@@ -139,30 +141,70 @@ public class Activity_book_list extends AppCompatActivity implements View.OnClic
 
         Button Add_book = (Button) findViewById(R.id.btn_b_add);
         Button Add_book_back = (Button) findViewById(R.id.btn_b_back);
-        Button book_search = (Button) findViewById(R.id.btn_b_search);
 
         Add_book.setOnClickListener(this);
         Add_book_back.setOnClickListener(this);
-        book_search.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+        String book_data = sharedPreferences.getString("bookData", "");
+        if (book_data.equals("")) {
+            arrayBook = new ArrayList<Activity_book_data>();
+            String book_array = gson.toJson(arrayBook, arrayBook_list);
+            editor.putString("bookData", book_array);
+            editor.commit();
+        } else {
+
+            arrayBook = gson.fromJson(book_data, arrayBook_list);
+        }
+
+        Log.d(TAG, "arraybook : " + "사이즈" + arrayBook.size());
+        adapter = new Activity_book_adapter(context, this, arrayBook);
+        recyclerView.setAdapter(adapter);
+
 
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_b_add) {
-            Intent intent = new Intent(getApplicationContext(), Activity_add_book.class);
-            startActivity(intent);
-            finish();
+
+            final PopupMenu popupMenu = new PopupMenu(this, v);
+            getMenuInflater().inflate(R.menu.book_add_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    if (menuItem.getItemId() == R.id.btn_add_search) {
+                        Intent intent = new Intent(getApplicationContext(), Activity_book_search.class);
+                        startActivity(intent);
+                        finish();
+
+//                        Toast.makeText(Activity_book_list.this, "검색으로", Toast.LENGTH_SHORT).show();
+                    } else if (menuItem.getItemId() == R.id.btn_add_direct) {
+                        Intent intent = new Intent(getApplicationContext(), Activity_add_book.class);
+                        startActivity(intent);
+                        finish();
+//                        Toast.makeText(Activity_book_list.this, "메뉴 2 클릭", Toast.LENGTH_SHORT).show();
+                    }
+
+                    return false;
+                }
+            });
+            popupMenu.show();
+
 
         } else if (v.getId() == R.id.btn_b_back) {
 
             finish();
-        } else if (v.getId() == R.id.btn_b_search) {
-            String bsResult = bookSearch.getText().toString();
-            Intent intentSearch = new Intent(getApplicationContext(), Activity_book_search.class);
-            intentSearch.putExtra("bookSearch", bsResult);
-            startActivity(intentSearch);
+
         }
+
     }
 
     @Override

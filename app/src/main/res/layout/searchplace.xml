@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="book.Activity_book_search">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="49dp"
+        android:background="@drawable/shape_button_book"
+        android:gravity="center"
+        android:text="MAP Search"
+        android:textSize="50sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/mapSearch_region"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/btn_addb_img"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/border_book"
+            android:textSize="10dp"
+            android:hint="지역명"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/mapSearch_result"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/btn_addb_img"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/border_book"
+            android:textSize="10dp"
+            android:hint="미술관,영화관..."
+            android:padding="10dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_map_search"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/shape_button_book"
+            android:text="search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="horizontal">
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="horizontal">
+<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/placeSearch_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        android:layout_weight="1"
+        android:background="@color/book_grey"
+        />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_map_searchBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/shape_button_book"
+            android:text="back" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

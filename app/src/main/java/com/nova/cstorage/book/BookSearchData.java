@@ -1,38 +1,39 @@
 package com.nova.cstorage.book;
 
-public class BookSearchData {
+import java.io.Serializable;
+
+public class BookSearchData implements Serializable {
     private String title;
     private String author;
+    private String book_pic;
 
-    public BookSearchData(String title, String author) {
+    public BookSearchData(){
 
-//        this.book_pic = book_pic;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
         this.author = author;
     }
-        public String getTitle () {
-            return title;
-        }
 
-        public void setTitle (String title){
-            this.title = title;
-        }
-
-        public String getAuthor () {
-            return author;
-        }
-
-        public void setAuthor (String author){
-            this.author = author;
-        }
-
-//    public String getBloggername() {
-//        return bloggername;
-//    }
-//
-//    public void setBloggername(String bloggername) {
-//        this.bloggername = bloggername;
-//    }
-
-
+    public String getBookpic() {
+        return book_pic;
     }
+
+    public void setBook_pic(String book_pic) {
+        this.book_pic = book_pic;
+    }
+
+
+}

@@ -43,7 +43,7 @@
         android:layout_below="@id/movie_add_title"
         android:layout_centerHorizontal="true"
         android:background="@drawable/border_movielist"
-        android:hint="Author"
+        android:hint="Director"
         android:padding="10dp" />
 
     <EditText
